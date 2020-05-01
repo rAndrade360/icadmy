@@ -1,0 +1,8 @@
+Cliente:
+Nome
+CPF
+Data de Nascimento
+Celular
+E-mail
+Usuário = E-mail || Celular
+Senha
