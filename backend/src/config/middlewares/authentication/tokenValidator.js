@@ -1,16 +1,26 @@
-const jwt = require("express-jwt");
-const jwks = require("jwks-rsa");
+const jwt = require("jsonwebtoken");
+const secret = process.env.SECRET;
+//Middleware de autenticação
+module.exports = (req, res, next) => {
+  const authHeader = req.headers.authorization;
 
-const jwtCheck = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: process.env.SECRET_CACHE,
-    rateLimit: process.env.SECRET_RATE_LIMIT,
-    jwksRequestsPerMinute: process.env.SECRET_REQUEST_PER_MINUTE,
-    jwksUri: process.env.SECRET_URI,
-  }),
-  audience: process.env.AUDIENCE,
-  issuer: process.env.ISSUER,
-  algorithms: process.env.ALGORITHMS,
-});
+  if (!authHeader) return res.status(401).send({ error: "Token not provided" });
 
-module.exports = jwtCheck;
+  const parts = authHeader.split(" ");
+
+  if (!parts.length === 2)
+    return res.status(401).send({ error: "Token error" });
+
+  const [scheme, token] = parts;
+
+  if (!/^Bearer$/i.test(scheme))
+    res.status(401).send({ error: "Token malformated" });
+
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) res.status(401).send({ error: "Token invalid" });
+
+    req.userId = decoded.id;
+    req.userPermission = decoded.permission;
+    return next();
+  });
+};

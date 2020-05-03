@@ -6,3 +6,21 @@ Celular
 E-mail
 Usuário = E-mail || Celular
 Senha
+
+Academias:
+Nome
+cnpj
+telefone
+email
+senha
+
+produto:
+Nome
+Tipo
+Un. Media
+Estoque
+Preço
+Descrição
+
+segurança
+marketplace

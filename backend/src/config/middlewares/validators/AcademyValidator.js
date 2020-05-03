@@ -1,21 +1,20 @@
 const { check } = require("express-validator");
+
 module.exports = {
-  createClientValidator: [
+  createAcademyValidator: [
     check("name").isLength({ min: 2 }).trim().escape(),
-    check("cpf").isLength({ min: 8 }).trim().escape(),
-    check("birthday").notEmpty(),
+    check("cnpj").isLength({ min: 8 }).trim().escape(),
     check("phone_number").isMobilePhone(),
     check("email").isEmail().normalizeEmail(),
     check("password").isLength({ min: 8 }),
   ],
-  loginClientValidator: [
+  loginAcademyValidator: [
     check("email").isEmail().escape(),
+    check("cnpj").trim().escape(),
     check("password").isLength({ min: 8 }),
-    check("cpf").trim().escape(),
   ],
-  updateClientValidator: [
+  updateAcademyValidator: [
     check("name").isLength({ min: 2 }).trim().escape(),
-    check("birthday").notEmpty(),
     check("phone_number").isMobilePhone(),
   ],
 };
