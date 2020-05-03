@@ -1,9 +1,9 @@
 const { check } = require("express-validator");
 module.exports = [
-  check("name").isLength({ min: 2 }),
-  check("cpf").isEmpty(),
-  check("birthday").isEmpty(),
+  check("name").isLength({ min: 2 }).trim().escape(),
+  check("cpf").isLength({ min: 8 }).trim().escape(),
+  check("birthday").notEmpty(),
   check("phone_number").isMobilePhone(),
-  check("email").isEmail().isEmpty(),
+  check("email").isEmail().normalizeEmail(),
   check("password").isLength({ min: 8 }),
 ];
