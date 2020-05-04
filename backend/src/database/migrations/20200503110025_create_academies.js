@@ -6,6 +6,14 @@ exports.up = function (knex) {
     table.string("phone_number").notNullable();
     table.string("email").notNullable().unique();
     table.string("password").notNullable();
+    table
+      .integer("adress_id")
+      .unsigned()
+      .references("id")
+      .inTable("adresses")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
+    table.timestamps(true);
   });
 };
 

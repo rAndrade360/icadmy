@@ -71,12 +71,14 @@ module.exports = {
 
   async delete(req, res) {
     const { id } = req.params;
-    if (req.userPermission !== "academy")
-      const product = await connection("products")
-        .select("*")
-        .where({ id })
-        .limit(1)
-        .first();
+    if (req.userPermission !== "academy") {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const product = await connection("products")
+      .select("*")
+      .where({ id })
+      .limit(1)
+      .first();
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }

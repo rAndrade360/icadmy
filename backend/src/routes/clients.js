@@ -3,8 +3,8 @@ const routes = express.Router();
 
 const ClientController = require("../controllers/ClientController");
 const LoginController = require("../controllers/LoginController");
-const ClientValidator = require("../config/middlewares/validators/ClientValidator");
-const tokenValidator = require("../config/middlewares/authentication/tokenValidator");
+const ClientValidator = require("../middlewares/validators/ClientValidator");
+const tokenValidator = require("../middlewares/authentication/tokenValidator");
 
 routes.post(
   "/singup",
